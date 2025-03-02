@@ -23,7 +23,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            height: 60px; /* Altura fija para el header */
+            height: 60px;
         }
         .search-bar {
             display: flex;
@@ -56,63 +56,28 @@
             font-weight: bold;
             color: black;
         }
-        .carousel {
-            margin-top: 0px;
-            text-align: center;
-        }
-        .carousel-container {
+
+        /* Carrusel de productos */
+        .product-carousel {
             position: relative;
-            max-width: 100%;
+            width: 80%;
+            margin: 30px auto;
             overflow: hidden;
-            margin-top: 20px;
-        }
-        .slides {
-            display: flex;
-            transition: transform 0.5s ease-in-out;
-            width: 100%;
-        }
-        .carousel-slide {
-            width: 100%;
-            height: 600px;
-            display: block;
-            object-fit: cover;
-            flex-shrink: 0;
-        }
-        .carousel-button {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background-color: rgba(0, 0, 0, 0.5);
-            color: white;
-            border: none;
-            font-size: 30px;
-            cursor: pointer;
-            padding: 10px;
-            z-index: 10; /* Asegura que los botones estén por encima del carrusel */
-        }
-
-        .prev {
-            left: 10px;
-        }
-
-        .next {
-            right: 10px;
         }
         .products {
             display: flex;
-            flex-wrap: wrap;
-            justify-content: space-around;
-            padding: 20px;
+            transition: transform 0.5s ease-in-out;
+            width: max-content;
         }
         .product {
-            width: 30%;
+            width: 300px;
             margin: 10px;
             padding: 15px;
             border: 1px solid #ddd;
             border-radius: 5px;
             text-align: center;
-            cursor: pointer;
             background: white;
+            flex-shrink: 0;
         }
         .product img {
             max-width: 100%;
@@ -125,6 +90,25 @@
             font-size: 1.2em;
             color: #28a745;
         }
+        /* Botones del carrusel */
+        .carousel-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+            padding: 10px;
+            z-index: 10;
+        }
+        .prev-btn {
+            left: 0;
+        }
+        .next-btn {
+            right: 0;
+        }
         footer {
             text-align: center;
             padding: 20px;
@@ -134,93 +118,176 @@
     </style>
 </head>
 <body>
-<header class="sticky-header">
-    <div class="search-bar">
-        <input type="text" placeholder="Buscar productos...">
-        <button>Buscar</button>
-    </div>
-    <div class="nav-buttons">
-        <button>Groupbuy</button>
-        <button>¿Primera vez?</button>
-        <button>Contáctanos</button>
-        <button>Devoluciones y pedidos</button>
-    </div>
-</header>
 
-<section class="carousel">
-    <div class="carousel-container">
-        <div class="slides">
-            <img src="ad1.jpg" alt="Anuncio 1" class="carousel-slide">
-            <img src="ad2.jpg" alt="Anuncio 2" class="carousel-slide">
-            <img src="ad3.jpg" alt="Anuncio 3" class="carousel-slide">
+<style>
+    #about {
+        background-image: url('ConBg.jpg'); /* Reemplaza con la URL o ruta de tu imagen */
+        background-size: cover; /* Ajusta la imagen para cubrir toda la sección */
+        background-position: center; /* Centra la imagen */
+        background-attachment: fixed; /* Hace que la imagen se mantenga fija al hacer scroll */
+        padding: 50px 20px; /* Añade espacio alrededor del contenido para mejor visibilidad */
+        color: black; /* Cambia el color del texto para que se vea bien sobre la imagen */
+        text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5); /* Agrega sombra al texto para mejor contraste */
+    }
+</style>
+<section id="about">
+    <div class="container">
+        <h1>Conócenos</h1>
+        <p>En nuestra plataforma, hacemos las compras más accesibles y convenientes. ¿Cómo? Permitiendo que los usuarios se agrupen para realizar compras en conjunto. Cuantas más personas acepten comprar el mismo producto, mejores serán los descuentos que cada una de ellas recibirá.</p>
+        <p>Nos basamos en el poder de las compras en grupo para conseguir precios más bajos, brindando una experiencia de compra única donde cada miembro se beneficia de un precio reducido gracias a la colaboración entre los usuarios.</p>
+        <p>Ya sea que estés buscando productos electrónicos, ropa, o cualquier otro tipo de artículo, nuestra plataforma es el lugar ideal para obtener descuentos de manera efectiva. Invita a tus amigos, familiares o compañeros para unirse a las ofertas y disfruta de los beneficios del ahorro colectivo.</p>
+        <h2>¿Cómo funciona?</h2>
+        <ol>
+            <li><strong>Únete a una oferta:</strong> Explora nuestra plataforma y encuentra las ofertas disponibles.</li>
+            <li><strong>Forma un grupo:</strong> Atrae a tus amigos o contactos para que se sumen a la compra.</li>
+            <li><strong>Descuentos progresivos:</strong> Mientras más personas se sumen, mejor será el descuento para todos.</li>
+            <li><strong>Compra y ahorra:</strong> Una vez alcanzado el número necesario, el descuento se aplica y todos compran a un precio más bajo.</li>
+            <li><strong>Mientras mas mejor</strong> Mientras mas personas se unan mejor es el precio.</li>
+        </ol>
+    </div>
+</section>
+<div style="text-align: center; font-size: 18px; font-weight: bold; margin: 20px 0;">
+    A continuación, un ejemplo de cómo funciona esta idea de negocio
+</div>
+<!-- Carrusel de productos -->
+<section class="product-carousel">
+    <button class="carousel-btn prev-btn" onclick="moveSlide(-1)">&#10094;</button>
+    <div class="products-container">
+        <div class="products">
+            <div class="product" data-count="0">
+                <img src="producto1.jpg" alt="Producto 1">
+                <h3>Classic Alpargata Recycled Cotton All Black Canvas</h3>
+                <p class="price">$799.00</p>
+                <p>Descripción breve del producto 1.</p>
+                <p class="interested-count">Interesados: 0</p>
+                <p class="discount-message"></p>
+                <button class="interest-btn">Me interesa</button>
+            </div>
+            <div class="product" data-count="0">
+                <img src="producto2.jpg" alt="Producto 2">
+                <h3>Producto 2</h3>
+                <p class="price">$200.00</p>
+                <p>Descripción breve del producto 2.</p>
+                <p class="interested-count">Interesados: 0</p>
+                <p class="discount-message"></p>
+                <button class="interest-btn">Me interesa</button>
+            </div>
+            <div class="product" data-count="0">
+                <img src="producto3.jpg" alt="Producto 3">
+                <h3>Producto 3</h3>
+                <p class="price">$300.00</p>
+                <p>Descripción breve del producto 3.</p>
+                <p class="interested-count">Interesados: 0</p>
+                <p class="discount-message"></p>
+                <button class="interest-btn">Me interesa</button>
+            </div>
+            <div class="product" data-count="0">
+                <img src="producto4.jpg" alt="Producto 4">
+                <h3>Producto 4</h3>
+                <p class="price">$120.00</p>
+                <p>Descripción breve del producto 4.</p>
+                <p class="interested-count">Interesados: 0</p>
+                <p class="discount-message"></p>
+                <button class="interest-btn">Me interesa</button>
+            </div>
+            <div class="product" data-count="0">
+                <img src="producto5.jpg" alt="Producto 5">
+                <h3>Producto 5</h3>
+                <p class="price">$180.00</p>
+                <p>Descripción breve del producto 5.</p>
+                <p class="interested-count">Interesados: 0</p>
+                <p class="discount-message"></p>
+                <button class="interest-btn">Me interesa</button>
+            </div>
         </div>
-        <button class="prev carousel-button" onclick="moveSlide(-1)">&#10094;</button>
-        <button class="next carousel-button" onclick="moveSlide(1)">&#10095;</button>
     </div>
+    <button class="carousel-btn next-btn" onclick="moveSlide(1)">&#10095;</button>
 </section>
+<!-- Información después del carrusel -->
+<style>
+    #mem {
+        background-image: url('memBg.jpeg'); /* Reemplaza con la URL o ruta de tu imagen */
+        background-size: cover; /* Ajusta la imagen para cubrir toda la sección */
+        background-position: center; /* Centra la imagen */
+        background-attachment: fixed; /* Hace que la imagen se mantenga fija al hacer scroll */
+        padding: 50px 20px; /* Añade espacio alrededor del contenido para mejor visibilidad */
+        color: black; /* Cambia el color del texto para que se vea bien sobre la imagen */
+        text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5); /* Agrega sombra al texto para mejor contraste */
+    }
+</style>
+<div id="mem">
+    <h2>Membresías con beneficios exclusivos (Plus y Platinum)</h2>
+    <ul>
+        <li>Descuentos adicionales del 5-10% sobre los precios grupales.</li>
+        <li>Acceso anticipado a ofertas especiales.</li>
+        <li>Cashback en cada compra para futuras compras.</li>
+    </ul>
 
-<section class="products">
-    <div class="product" onclick="location.href='producto.html'">
-        <img src="producto1.jpg" alt="Producto 1">
-        <h3>Producto 1</h3>
-        <p class="price">$100.00</p>
-        <p class="description">Descripción breve del producto 1.</p>
-    </div>
-    <div class="product" onclick="location.href='producto.html'">
-        <img src="producto2.jpg" alt="Producto 2">
-        <h3>Producto 2</h3>
-        <p class="price">$200.00</p>
-        <p class="description">Descripción breve del producto 2.</p>
-    </div>
-    <div class="product" onclick="location.href='producto.html'">
-        <img src="producto3.jpg" alt="Producto 3">
-        <h3>Producto 3</h3>
-        <p class="price">$300.00</p>
-        <p class="description">Descripción breve del producto 3.</p>
-    </div>
-    <!-- Más productos -->
-</section>
+    <h2>Formas de envío</h2>
+    <ul>
+        <li>Envío Consolidado a un Punto de Recogida</li>
+        <li>Envío Directo a Domicilio (División de Costos)</li>
+        <li>Envío Gratuito con Monto Mínimo del Grupo</li>
+        <li>Entrega en Tiendas Aliadas o Puntos de Encuentro</li>
+        <li>Entrega Programada o Periódica</li>
+        <li>Envío Express para Grupos Premium</li>
+    </ul>
+
+    <h2>Ofertas Flash</h2>
+    <p>Durante 24 horas, si se forma un grupo, pueden obtener hasta un 40% de descuento en productos seleccionados.</p>
+</div>
 
 <footer>
-    <p>¿Te gusto nuestra pagina de brueba? Dejanos saber tu <a href="https://docs.google.com/forms/d/e/1FAIpQLSfC0a_GMhXmJ7MnayyRXMIS0dgtsgplD6wApTL3CHppFwW7Uw/viewform" style="color: #007bff; text-decoration: none;">opinión</a>.</p>
+    <p>¿Te gustó nuestra página de prueba? Déjanos saber tu <a href="https://docs.google.com/forms/d/e/1FAIpQLSfC0a_GMhXmJ7MnayyRXMIS0dgtsgplD6wApTL3CHppFwW7Uw/viewform" style="color: #007bff; text-decoration: none;">opinión</a>.</p>
 </footer>
 
 <script>
-    window.addEventListener('scroll', function() {
-        const header = document.querySelector('.sticky-header');
-        if (window.scrollY > 0) {
-            header.classList.add('scrolled');
-        } else {
-            header.classList.remove('scrolled');
-        }
-    });
-    let currentSlide = 0;
-    const slides = document.querySelectorAll('.carousel-slide');
-
-    function showSlide(index) {
-        if (index >= slides.length) {
-            currentSlide = 0;
-        } else if (index < 0) {
-            currentSlide = slides.length - 1;
-        } else {
-            currentSlide = index;
-        }
-
-        const slideWidth = slides[0].clientWidth;
-        document.querySelector('.slides').style.transform = `translateX(-${slideWidth * currentSlide}px)`;
-    }
+    let currentIndex = 0;
+    const productsContainer = document.querySelector(".products");
+    const products = document.querySelectorAll(".product");
+    const productWidth = products[0].offsetWidth + 20; // Ancho + margen
+    const totalProducts = products.length;
+    const visibleProducts = Math.floor(document.querySelector(".product-carousel").offsetWidth / productWidth);
 
     function moveSlide(direction) {
-        showSlide(currentSlide + direction);
+        currentIndex += direction;
+
+        // Si llegamos al final, volvemos al inicio
+        if (currentIndex >= totalProducts - visibleProducts + 1) {
+            currentIndex = 0;
+        }
+        // Si estamos en el primer producto y vamos hacia atrás, nos vamos al último conjunto visible
+        else if (currentIndex < 0) {
+            currentIndex = totalProducts - visibleProducts;
+        }
+
+        productsContainer.style.transform = `translateX(-${currentIndex * productWidth}px)`;
     }
+    document.querySelectorAll('.interest-btn').forEach(button => {
+        button.addEventListener('click', function() {
+            let productDiv = this.closest('.product');
+            let countElement = productDiv.querySelector('.interested-count');
+            let discountElement = productDiv.querySelector('.discount-message');
 
-    // Inicializar el carrusel
-    showSlide(currentSlide);
+            // Incrementar el contador
+            let count = parseInt(productDiv.getAttribute('data-count')) + 1;
+            productDiv.setAttribute('data-count', count);
+            countElement.textContent = `Interesados: ${count}`;
 
-    // Si deseas que el carrusel avance automáticamente cada cierto tiempo:
-    setInterval(() => {
-        moveSlide(1);
-    }, 5000);  // Cambia la imagen cada 5 segundos
+            // Determinar el descuento basado en el número de interesados
+            let discountMessage = "";
+            if (count >= 2 && count <= 5) {
+                discountMessage = "¡Descuento del 5% activado!";
+            } else if (count >= 6 && count <= 10) {
+                discountMessage = "¡Descuento del 10% activado!";
+            } else if (count >= 11) {
+                discountMessage = "¡Descuento del 15-20% activado!";
+            }
+
+            discountElement.textContent = discountMessage;
+        });
+    });
 </script>
+
 </body>
 </html>
